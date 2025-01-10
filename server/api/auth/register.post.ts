@@ -1,7 +1,9 @@
 import { hash } from "@node-rs/argon2";
 import * as v from "valibot";
+import { cookieName, sessionExpiresIn } from "~~/server/constants";
 import { db } from "~~/server/database";
 import { userTable } from "~~/server/database/schema";
+import { generateToken } from "~~/server/session";
 
 export const bodySchema = v.pipe(
   v.object({
@@ -54,6 +56,14 @@ export default defineEventHandler(async (event) => {
       password: hashedPassword,
     })
     .returning();
+
+  const token = generateToken();
+  setCookie(event, cookieName, token, {
+    secure: true,
+    sameSite: "lax",
+    httpOnly: true,
+    maxAge: sessionExpiresIn,
+  });
 
   return sendNoContent(event);
 });
