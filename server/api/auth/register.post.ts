@@ -21,7 +21,7 @@ export const bodySchema = v.pipe(
       v.regex(/[A-Z]/, "Your password must contain a uppercase letter."),
       v.regex(/[0-9]/, "Your password must contain a number.")
     ),
-    confirmPassword: v.string(),
+    confirmPassword: v.string("Confirm password is required"),
   }),
   v.forward(
     v.partialCheck(
