@@ -8,13 +8,13 @@ import { createSession, generateToken } from "~~/server/session";
 export const bodySchema = v.pipe(
   v.object({
     username: v.pipe(
-      v.string(),
+      v.string("Username is required"),
       v.minLength(3, "Username must be at least 3 characters long"),
       v.maxLength(32, "Username must be at most 32 characters long"),
       v.nonEmpty("Username is required")
     ),
     password: v.pipe(
-      v.string(),
+      v.string("Password is required"),
       v.minLength(8, "Password must be at least 8 characters long"),
       v.nonEmpty("Password is required"),
       v.regex(/[a-z]/, "Your password must contain a lowercase letter."),

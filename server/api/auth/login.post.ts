@@ -7,8 +7,14 @@ import { userTable } from "~~/server/database/schema";
 import { createSession, generateToken } from "~~/server/session";
 
 const bodySchema = v.object({
-  username: v.pipe(v.string(), v.nonEmpty("Username is required")),
-  password: v.pipe(v.string(), v.nonEmpty("Password is required")),
+  username: v.pipe(
+    v.string("Username is required"),
+    v.nonEmpty("Username is required")
+  ),
+  password: v.pipe(
+    v.string("Password is required"),
+    v.nonEmpty("Password is required")
+  ),
 });
 
 export default defineEventHandler(async (event) => {
