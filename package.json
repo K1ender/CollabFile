@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@node-rs/argon2": "^2.0.2",
+    "@nuxt/fonts": "^0.10.3",
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
     "@unocss/reset": "^65.4.0",
