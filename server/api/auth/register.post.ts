@@ -3,7 +3,7 @@ import * as v from "valibot";
 import { cookieName, sessionExpiresIn } from "~~/server/constants";
 import { db } from "~~/server/database";
 import { userTable } from "~~/server/database/schema";
-import { generateToken } from "~~/server/session";
+import { createSession, generateToken } from "~~/server/session";
 
 export const bodySchema = v.pipe(
   v.object({
@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
 
   const hashedPassword = await hash(body.output.password);
 
-  const user = await db
+  const [user] = await db
     .insert(userTable)
     .values({
       username: body.output.username,
@@ -58,6 +58,9 @@ export default defineEventHandler(async (event) => {
     .returning();
 
   const token = generateToken();
+
+  createSession(user.id, token);
+
   setCookie(event, cookieName, token, {
     secure: true,
     sameSite: "lax",
