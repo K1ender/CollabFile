@@ -1,7 +1,8 @@
-import { userTable } from "./database/schema";
+import { sessionTable, userTable } from "./database/schema";
 
 declare module "h3" {
   export interface H3Context {
-    user?: typeof userTable.$inferSelect;
+    user?: Omit<typeof userTable.$inferSelect, "password">;
+    session?: typeof sessionTable.$inferSelect;
   }
 }
