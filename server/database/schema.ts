@@ -15,7 +15,8 @@ export const filesTable = pgTable("files", {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),
-  // TODO: check what returns s3 for id
+  fileName: text("fileName").notNull(),
+  key: text("key").notNull().unique(),
 });
 
 export const sessionTable = pgTable("sessions", {
