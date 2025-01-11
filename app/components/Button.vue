@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import type { Component } from 'vue';
-
-const { variant = "primary", size = "md", as = "button", to } = defineProps<Props>()
+const { variant = "primary", size = "md", to } = defineProps<Props>()
 
 interface Props {
     variant?: "primary" | "secondary" | "link"
     size?: "sm" | "md" | "lg",
-    as?: string | Component,
     to?: string
 }
 type Variants = {
@@ -17,7 +14,7 @@ type Sizes = {
 }
 
 const buttonClasses = computed(() => {
-    const baseClasses = 'h-auto py-2 inline-flex px-4 fw-semibold text-white rounded transition-all';
+    const baseClasses = 'h-auto py-2 inline-flex px-4 fw-semibold text-white rounded transition-all text-center justify-center items-center';
     const variantClasses: Variants = {
         primary: 'bg-blue-500 hover:bg-blue-600',
         secondary: 'bg-green-500 hover:bg-green-600',

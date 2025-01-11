@@ -12,4 +12,13 @@ import Navbar from '~/components/Navbar.vue';
 * {
     font-family: "Inter", serif;
 }
+
+html {
+    height: 100vh;
+}
+
+body,
+#__nuxt {
+    height: 100%;
+}
 </style>
