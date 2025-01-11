@@ -12,8 +12,10 @@ watch(user, () => {
 </script>
 
 <template>
-    <Navbar></Navbar>
-    <slot></slot>
+    <div class="grid h-full" :class="$style.component">
+        <Navbar></Navbar>
+        <slot></slot>
+    </div>
 </template>
 
 <style>
@@ -28,5 +30,11 @@ html {
 body,
 #__nuxt {
     height: 100%;
+}
+</style>
+
+<style module>
+.component {
+    grid-template-rows: 1fr auto;
 }
 </style>

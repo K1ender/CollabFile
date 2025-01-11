@@ -19,6 +19,10 @@ useHead({
   ]
 })
 
+definePageMeta({
+  skipAuth: true,
+})
+
 </script>
 
 <template>
