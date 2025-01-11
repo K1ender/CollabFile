@@ -1,16 +1,19 @@
 <script setup lang="ts">
-
+const opened = ref(false);
 </script>
 
 <template>
-    <header class="flex sticky bg-neutral-950 text-white px-8 py-4 rounded-lg  mx-4 mt-2 flex-col sm:flex-row">
-        <div>
-            <NuxtLink class="mt-2" to="/">CollabFile</NuxtLink>
-            <img />
+    <header
+        class="flex sticky bg-neutral-950 text-white px-8 py-6 md:py-4 rounded-b-2 flex-col md:flex-row md:items-center md:container mx-auto">
+        <div class="flex flex-row justify-center">
+            <NuxtLink @click="opened = false" to="/">CollabFile</NuxtLink>
+            <Icon v-on:click="opened = !opened" name="meteor-icons:bars" size="1.5em"
+                class="ml-auto cursor-pointer md:hidden" />
         </div>
-        <nav class="flex w-full justify-end gap-4 flex-col mt-4">
-            <Button to="/auth/login" variant="link">Login</Button>
-            <Button to="/auth/register" variant="primary">Register</Button>
+        <nav :class="opened ? 'flex' : 'hidden'"
+            class="w-full justify-end gap-4 md:flex flex-col mt-4 md:flex-row md:mt-0">
+            <Button @click="opened = false" to="/auth/login" variant="link">Login</Button>
+            <Button @click="opened = false" to="/auth/register" variant="primary">Register</Button>
         </nav>
     </header>
 </template>

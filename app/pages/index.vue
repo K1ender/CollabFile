@@ -22,5 +22,7 @@ useHead({
 </script>
 
 <template>
-  <h1>CollabFile</h1>
+  <div>
+    <h1>CollabFile</h1>
+  </div>
 </template>
