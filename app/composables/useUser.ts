@@ -4,14 +4,12 @@ export default function useUser() {
     username: string;
     isAuthenticated: boolean;
   }>("user", () => null);
-  const isLoading = ref(false);
 
   const fetchUserProfile = async () => {
     if (user.value !== null && user.value.isAuthenticated) {
       return;
     }
     try {
-      isLoading.value = true;
       const response = await useRequestFetch()("/api/user");
       user.value = {
         id: response.id,
@@ -21,7 +19,6 @@ export default function useUser() {
     } catch (error) {
       console.error(error);
     }
-    isLoading.value = false;
   };
 
   const login = async (username: string, password: string) => {
@@ -63,6 +60,5 @@ export default function useUser() {
     logout,
     login,
     register,
-    isLoading,
   };
 }
