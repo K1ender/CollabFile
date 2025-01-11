@@ -20,6 +20,8 @@ export default defineEventHandler(async (event) => {
         id: user.id,
         username: user.username,
       };
+
+      event.context.session = session;
     }
   }
 

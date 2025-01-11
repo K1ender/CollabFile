@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const opened = ref(false);
+
+const { user } = useUser();
+
+
 </script>
 
 <template>
@@ -12,8 +16,13 @@ const opened = ref(false);
         </div>
         <nav :class="opened ? 'flex' : 'hidden'"
             class="w-full justify-end gap-4 md:flex flex-col mt-4 md:flex-row md:mt-0">
-            <Button @click="opened = false" to="/auth/login" variant="link">Login</Button>
-            <Button @click="opened = false" to="/auth/register" variant="primary">Register</Button>
+            <div class="flex flex-row gap-4" v-if="!user">
+                <Button @click="opened = false" to="/auth/login" variant="link">Login</Button>
+                <Button @click="opened = false" to="/auth/register" variant="primary">Register</Button>
+            </div>
+            <Button v-else variant="link" to="/profile">
+                {{ user.username }}
+            </Button>
         </nav>
     </header>
 </template>

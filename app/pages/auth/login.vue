@@ -3,15 +3,11 @@
 const username = ref("");
 const password = ref("");
 
+const { login: addAuth } = useUser();
+
 async function login() {
     try {
-        await $fetch("/api/auth/login", {
-            method: "POST",
-            body: {
-                username: username.value,
-                password: password.value,
-            }
-        })
+        await addAuth(username.value, password.value);
         navigateTo("/")
     } catch (error) {
         console.log(error);
