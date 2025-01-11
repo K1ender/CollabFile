@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const { fetchUserProfile, user, logout: removeAuth } = useUser();
-
-onMounted(() => {
-    fetchUserProfile();
-})
+const { user, logout: removeAuth } = useUser();
 
 async function logout() {
     try {

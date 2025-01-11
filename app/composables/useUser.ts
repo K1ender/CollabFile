@@ -33,15 +33,11 @@ export default function useUser() {
     }
   };
 
-  const register = async (
-    username: string,
-    password: string,
-    confirmPassword: string
-  ) => {
+  const register = async (username: string, password: string) => {
     try {
       await $fetch("/api/auth/register", {
         method: "POST",
-        body: { username, password, confirmPassword },
+        body: { username, password },
       });
       await fetchUserProfile();
     } catch (error) {
@@ -50,8 +46,12 @@ export default function useUser() {
   };
 
   const logout = async () => {
-    user.value = null;
-    await $fetch("/api/auth/logout", { method: "POST" });
+    try {
+      await $fetch("/api/auth/logout", { method: "POST" });
+      user.value = null;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return {

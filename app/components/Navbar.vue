@@ -2,8 +2,6 @@
 const opened = ref(false);
 
 const { user } = useUser();
-
-
 </script>
 
 <template>

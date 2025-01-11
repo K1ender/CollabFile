@@ -5,35 +5,22 @@ import { db } from "~~/server/database";
 import { userTable } from "~~/server/database/schema";
 import { createSession, generateToken } from "~~/server/session";
 
-export const bodySchema = v.pipe(
-  v.object({
-    username: v.pipe(
-      v.string("Username is required"),
-      v.minLength(3, "Username must be at least 3 characters long"),
-      v.maxLength(32, "Username must be at most 32 characters long"),
-      v.nonEmpty("Username is required")
-    ),
-    password: v.pipe(
-      v.string("Password is required"),
-      v.minLength(8, "Password must be at least 8 characters long"),
-      v.nonEmpty("Password is required"),
-      v.regex(/[a-z]/, "Your password must contain a lowercase letter."),
-      v.regex(/[A-Z]/, "Your password must contain a uppercase letter."),
-      v.regex(/[0-9]/, "Your password must contain a number.")
-    ),
-    confirmPassword: v.string("Confirm password is required"),
-  }),
-  v.forward(
-    v.partialCheck(
-      [["password"], ["confirmPassword"]],
-      ({ password, confirmPassword }) => {
-        return password === confirmPassword;
-      },
-      "Passwords do not match"
-    ),
-    ["confirmPassword"]
-  )
-);
+export const bodySchema = v.object({
+  username: v.pipe(
+    v.string("Username is required"),
+    v.minLength(3, "Username must be at least 3 characters long"),
+    v.maxLength(32, "Username must be at most 32 characters long"),
+    v.nonEmpty("Username is required")
+  ),
+  password: v.pipe(
+    v.string("Password is required"),
+    v.minLength(8, "Password must be at least 8 characters long"),
+    v.nonEmpty("Password is required"),
+    v.regex(/[a-z]/, "Your password must contain a lowercase letter."),
+    v.regex(/[A-Z]/, "Your password must contain a uppercase letter."),
+    v.regex(/[0-9]/, "Your password must contain a number.")
+  ),
+});
 
 export default defineEventHandler(async (event) => {
   const body = await readValidatedBody(event, (body) =>
