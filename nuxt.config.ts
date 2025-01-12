@@ -8,4 +8,12 @@ export default defineNuxtConfig({
     preflight: true,
   },
   css: ["@unocss/reset/tailwind.css"],
+  nitro: {
+    experimental: {
+      tasks: true,
+    },
+    scheduledTasks: {
+      "*/5 * * * *": ["db:delete_expired_url"],
+    },
+  },
 });

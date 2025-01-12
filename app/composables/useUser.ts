@@ -10,10 +10,11 @@ export default function useUser() {
       return;
     }
     try {
-      const response = await useRequestFetch()("/api/user");
+      const { data } = await useFetch("/api/user");
+      if (!data.value) return;
       user.value = {
-        id: response.id,
-        username: response.username,
+        id: data.value?.id,
+        username: data.value?.username,
         isAuthenticated: true,
       };
     } catch (error) {

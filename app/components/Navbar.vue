@@ -18,7 +18,7 @@ const { user } = useUser();
                 <Button @click="opened = false" to="/auth/login" variant="link">Login</Button>
                 <Button @click="opened = false" to="/auth/register" variant="primary">Register</Button>
             </div>
-            <Button v-else variant="link" to="/profile">
+            <Button @click="opened = false" v-else variant="link" to="/profile">
                 {{ user.username }}
             </Button>
         </nav>
