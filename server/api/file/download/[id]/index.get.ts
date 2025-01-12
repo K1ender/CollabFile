@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const fileObject = await client.getObject({
-    Bucket: process.env.S3_BUCKET as string,
+    Bucket: process.env.S3_BUCKETa as string,
     Key: file.key,
   });
 

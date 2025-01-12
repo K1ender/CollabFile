@@ -16,8 +16,8 @@ type Sizes = {
 const buttonClasses = computed(() => {
     const baseClasses = 'h-auto py-2 inline-flex px-4 fw-semibold text-white rounded transition-all text-center justify-center items-center';
     const variantClasses: Variants = {
-        primary: 'bg-blue-500 hover:bg-blue-600',
-        secondary: 'bg-green-500 hover:bg-green-600',
+        primary: 'bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300',
+        secondary: 'bg-green-500 hover:bg-green-600 disabled:bg-green-300',
         link: "text-white rounded-0 border-inset border-b-1 border-transparent hover:border-white",
     };
     const sizeClasses: Sizes = {

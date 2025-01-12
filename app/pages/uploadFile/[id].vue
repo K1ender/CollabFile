@@ -23,6 +23,8 @@ onBeforeUnmount(() => clearInterval(intervalId));
 
 const fileRef = useTemplateRef('fileUpload')
 
+const isLoading = ref(false);
+
 async function uploadFile() {
     if (!fileRef?.value?.files) return
 
@@ -32,6 +34,7 @@ async function uploadFile() {
     formData.append('file', file);
 
     try {
+        isLoading.value = true;
         await $fetch(`/api/file/upload/${id}`, {
             method: 'POST',
             body: formData,
@@ -40,6 +43,7 @@ async function uploadFile() {
     } catch (error) {
         console.log(error);
     }
+    isLoading.value = false;
 }
 
 </script>
@@ -56,7 +60,9 @@ async function uploadFile() {
 
             <input ref="fileUpload" type="file" />
 
-            <Button @click="uploadFile" class="my-2">Upload</Button>
+            <Button :disabled="isLoading" @click="uploadFile" class="my-2">
+                {{ isLoading ? "Uploading..." : "Upload" }}
+            </Button>
 
 
             <NuxtLink class="text-blue-500 mt-4" to="/">Back</NuxtLink>
