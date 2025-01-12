@@ -50,18 +50,8 @@ const { data: files, status } = useFetch("/api/user/files");
 <template>
     <div class="pt-21 flex flex-col items-center min-h-full">
         <h1 class="text-center text-3xl fw-semibold">Welcome back! {{ user?.username }}</h1>
+
         <Button @click="createTemporaryLink" class="my-2">Create temporary link</Button>
-
-        <div class="text-center">
-            <h2>Your files: </h2>
-            <ul v-if="files">
-                <li v-for="file in files" :key="file.id" class="text-center">
-                    {{ file.fileName }}
-                </li>
-            </ul>
-            <p v-else-if="status === 'pending'">Loading...</p>
-        </div>
-
         <div>
             <h2>Avaliable links: </h2>
             <ul>
@@ -69,6 +59,18 @@ const { data: files, status } = useFetch("/api/user/files");
                     <NuxtLink class="text-blue-500" :to="getUploadURL(link.id)">{{ link.id }}</NuxtLink>
                 </li>
             </ul>
+        </div>
+
+        <div class="text-center">
+            <h2>Your files: </h2>
+            <ul v-if="files">
+                <li v-for="file in files" :key="file.id" class="text-center">
+                    <a class="text-blue-500" :href="`/api/file/download/${file.id}`">
+                        {{ file.fileName }}
+                    </a>
+                </li>
+            </ul>
+            <p v-else-if="status === 'pending'">Loading...</p>
         </div>
 
         <Button class="mt-4" @click="logout">Logout</Button>
