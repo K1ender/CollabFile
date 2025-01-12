@@ -44,7 +44,6 @@ onMounted(() => {
 onBeforeUnmount(() => clearInterval(intervalId));
 
 const { data: files, status } = useFetch("/api/user/files");
-
 </script>
 
 <template>

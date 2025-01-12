@@ -58,6 +58,7 @@ async function uploadFile() {
             <h1>{{ id }}</h1>
             <p>Created by: {{ data?.userID }}</p>
 
+            <p class="mt-4">Max file size: 100 MB </p>
             <input ref="fileUpload" type="file" />
 
             <Button :disabled="isLoading" @click="uploadFile" class="my-2">
