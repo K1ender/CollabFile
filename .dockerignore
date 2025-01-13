@@ -1,0 +1,7 @@
+node_modules
+.git
+.nuxt
+.DS_Store
+.output
+*.sqlite
+*.db

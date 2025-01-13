@@ -1,17 +1,14 @@
-import { text } from "drizzle-orm/pg-core";
-import { timestamp } from "drizzle-orm/pg-core";
-import { integer } from "drizzle-orm/pg-core";
-import { pgTable } from "drizzle-orm/pg-core";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
 
-export const userTable = pgTable("users", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+export const userTable = sqliteTable("users", {
+  id: integer("id").primaryKey(),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
 });
 
-export const filesTable = pgTable("files", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+export const filesTable = sqliteTable("files", {
+  id: integer("id").primaryKey(),
   userID: integer("userID").references(() => userTable.id, {
     onDelete: "cascade",
     onUpdate: "cascade",
@@ -20,7 +17,7 @@ export const filesTable = pgTable("files", {
   key: text("key").notNull().unique(),
 });
 
-export const temporaryURLsTable = pgTable("temporaryURLs", {
+export const temporaryURLsTable = sqliteTable("temporaryURLs", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => nanoid(6)),
@@ -30,12 +27,12 @@ export const temporaryURLsTable = pgTable("temporaryURLs", {
       onUpdate: "cascade",
     })
     .notNull(),
-  expiresAt: timestamp("expiresAt", {
-    withTimezone: true,
+  expiresAt: integer("expiresAt", {
+    mode: "timestamp_ms",
   }).notNull(),
 });
 
-export const sessionTable = pgTable("sessions", {
+export const sessionTable = sqliteTable("sessions", {
   id: text("id").primaryKey(),
   userID: integer("userID")
     .notNull()
@@ -43,7 +40,7 @@ export const sessionTable = pgTable("sessions", {
       onDelete: "cascade",
       onUpdate: "cascade",
     }),
-  expiresAt: timestamp("expiresAt", {
-    withTimezone: true,
+  expiresAt: integer("expiresAt", {
+    mode: "timestamp_ms",
   }).notNull(),
 });

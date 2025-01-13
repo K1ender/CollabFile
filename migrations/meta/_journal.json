@@ -1,40 +1,12 @@
 {
   "version": "7",
-  "dialect": "postgresql",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "7",
-      "when": 1736532446008,
-      "tag": "0000_yummy_robin_chapel",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1736631658467,
-      "tag": "0001_fancy_black_crow",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1736675577001,
-      "tag": "0002_soft_cerise",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1736675840735,
-      "tag": "0003_glossy_hemingway",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1736675918335,
-      "tag": "0004_awesome_proteus",
+      "version": "6",
+      "when": 1736753894587,
+      "tag": "0000_opposite_kylun",
       "breakpoints": true
     }
   ]

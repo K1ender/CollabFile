@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.726.1",
+    "@libsql/client": "^0.14.0",
     "@node-rs/argon2": "^2.0.2",
     "@nuxt/fonts": "^0.10.3",
     "@oslojs/crypto": "^1.0.1",
@@ -23,7 +24,6 @@
     "drizzle-orm": "^0.38.3",
     "nanoid": "^5.0.9",
     "nuxt": "^3.15.1",
-    "pg": "^8.13.1",
     "uuid": "^11.0.5",
     "valibot": "1.0.0-beta.11",
     "vue": "latest",
@@ -33,7 +33,6 @@
   "devDependencies": {
     "@nuxt/icon": "^1.10.3",
     "@types/busboy": "^1.5.4",
-    "@types/pg": "^8.11.10",
     "@unocss/nuxt": "^65.4.0",
     "@unocss/preset-uno": "^65.4.0",
     "drizzle-kit": "^0.30.1",
