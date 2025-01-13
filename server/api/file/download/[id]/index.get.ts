@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
     "Content-Disposition",
     `attachment; filename="${file.fileName}"`
   );
+  setHeader(event, "Content-Length", fileObject.ContentLength);
 
   return fileObject.Body;
 });

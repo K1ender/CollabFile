@@ -20,11 +20,13 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const formdata = await readMultipartFormData(event);
-    if (!formdata) return;
-    const file = formdata[0];
+    // const formdata = await readMultipartFormData(event);
+    // if (!formdata) return;
+    // const file = formdata[0];
+    const { files, fields } = await useFiles(event);
+    const file = files[0];
 
-    if (!file || file.name !== "file" || !file.filename) {
+    if (!file || !file.filename) {
       throw createError({
         statusCode: 400,
         statusMessage: "Bad Request",
@@ -37,8 +39,8 @@ export default defineEventHandler(async (event) => {
     await client.putObject({
       Bucket: process.env.S3_BUCKET,
       Key: key,
-      Body: file.data,
-      ContentType: file.type,
+      Body: file.buffer,
+      ContentType: file.mimetype,
     });
     await db.insert(filesTable).values({
       fileName: file.filename,
