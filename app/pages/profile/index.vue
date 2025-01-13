@@ -23,12 +23,14 @@ async function createTemporaryLink() {
         const { id } = await $fetch("/api/file/createTemporaryURL", {
             method: "POST"
         })
-
         if (!id) {
             throw new Error("Failed to create temporary URL");
         }
-    } catch { }
-    refresh();
+        refresh();
+    } catch (e) {
+        console.error(e);
+    }
+
 }
 
 let intervalId: number;
@@ -42,6 +44,15 @@ onMounted(() => {
 
 onBeforeUnmount(() => clearInterval(intervalId));
 
+const deleteLink = async (id: string) => {
+    try {
+        await $fetch(`/api/url/${id}`, {
+            method: "DELETE"
+        })
+        await refresh()
+    } catch { }
+}
+
 const { data: files, status } = useFetch("/api/user/files");
 </script>
 
@@ -51,15 +62,19 @@ const { data: files, status } = useFetch("/api/user/files");
 
         <Button @click="createTemporaryLink" class="my-2">Create temporary link</Button>
         <div>
-            <h2>Avaliable links: </h2>
-            <ul>
-                <li v-for="link in data" :key="link.id" class="text-center">
-                    <NuxtLink class="text-blue-500" :to="getUploadURL(link.id)">{{ link.id }}</NuxtLink>
+            <h2 class="text-center">Avaliable links: </h2>
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
+                <li v-for="link in data" :key="link.id" class="flex items-center gap-2 bg-neutral-50 rounded p-2">
+                    <NuxtLink class="text-blue-500 w-32" :to="getUploadURL(link.id)">{{ link.id }}
+                    </NuxtLink>
+                    <IconButton @click="deleteLink(link.id)" variant="danger">
+                        <Icon name="mdi:trash-can"></Icon>
+                    </IconButton>
                 </li>
             </ul>
         </div>
 
-        <div class="text-center">
+        <div class="text-center mt-4">
             <h2>Your files: </h2>
             <ul v-if="files">
                 <li v-for="file in files" :key="file.id" class="text-center">
