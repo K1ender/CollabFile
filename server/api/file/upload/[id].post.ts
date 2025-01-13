@@ -69,6 +69,8 @@ export default defineEventHandler(async (event) => {
     fileName,
   });
 
+  await db.delete(temporaryURLsTable).where(eq(temporaryURLsTable.id, id));
+
   return {
     url,
     fields,
