@@ -25,4 +25,7 @@ jobs:
         run: pnpm install
 
       - name: Run database migrations
+        env:
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: pnpm run db:migrate
