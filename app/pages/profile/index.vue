@@ -46,7 +46,7 @@ const { data: files, status } = useFetch("/api/user/files");
 </script>
 
 <template>
-    <div class="pt-21 flex flex-col items-center min-h-full">
+    <div class="pt-21 flex flex-col items-center min-h-full w-full">
         <h1 class="text-center text-3xl fw-semibold">Welcome back! {{ user?.username }}</h1>
 
         <Button @click="createTemporaryLink" class="my-2">Create temporary link</Button>
