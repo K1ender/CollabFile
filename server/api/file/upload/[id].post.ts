@@ -11,16 +11,13 @@ const bodySchema = v.object({
     v.string("Filename is required"),
     v.nonEmpty("Filename is required")
   ),
-  contentType: v.pipe(
-    v.string("Content type is required"),
-    v.nonEmpty("Content type is required")
-  ),
+  contentType: v.string("Content type is required"),
 });
 
 export default defineEventHandler(async (event) => {
-  const body = await readValidatedBody(event, (body) =>
-    v.safeParse(bodySchema, body)
-  );
+  const body = await readValidatedBody(event, (body) => {
+    return v.safeParse(bodySchema, body);
+  });
 
   if (!body.success) {
     throw createError({

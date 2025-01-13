@@ -13,7 +13,6 @@ let intervalId: number;
 
 onMounted(() => {
     intervalId = window.setInterval(() => {
-        console.log("Refreshing...");
 
         refresh();
     }, 1000 * 60);
@@ -27,6 +26,12 @@ const isLoading = ref(false);
 
 async function uploadFile() {
     if (!fileRef?.value?.files || !fileRef.value.files[0]) return
+
+    if (fileRef.value.files[0].size > 100 * 1024 * 1024) {
+        isLoading.value = false;
+        return
+    }
+
     isLoading.value = true;
     const response = await $fetch(`/api/file/upload/${id}`, {
         method: "POST",
@@ -37,11 +42,6 @@ async function uploadFile() {
     })
 
     if (!response?.fields) {
-        return
-    }
-
-    if (fileRef.value.files[0].size > 100 * 1024 * 1024) {
-        isLoading.value = false;
         return
     }
 
@@ -56,11 +56,11 @@ async function uploadFile() {
             method: "POST",
             body: formData
         })
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
     }
 
+    // navigateTo("/");
     isLoading.value = false;
 }
 

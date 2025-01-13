@@ -35,7 +35,6 @@ let intervalId: number;
 
 onMounted(() => {
     intervalId = window.setInterval(() => {
-        console.log("Refreshing...");
 
         refresh();
     }, 1000 * 60);
