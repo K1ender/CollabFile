@@ -1,11 +1,7 @@
 import { cookieName } from "../constants";
 import { validateSession } from "../session";
 
-const publicRoutes = [
-  "/api/auth/register",
-  "/api/auth/login",
-  "/api/url/check/[id]",
-];
+const publicRoutes = ["/api/auth/register", "/api/auth/login", "/api/cron"];
 
 export default defineEventHandler(async (event) => {
   if (
