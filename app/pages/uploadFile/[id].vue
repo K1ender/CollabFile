@@ -40,6 +40,11 @@ async function uploadFile() {
         return
     }
 
+    if (fileRef.value.files[0].size > 100 * 1024 * 1024) {
+        isLoading.value = false;
+        return
+    }
+
     const formData = new FormData();
     Object.entries(response.fields).forEach(([key, value]) => {
         formData.append(key, value as string);
