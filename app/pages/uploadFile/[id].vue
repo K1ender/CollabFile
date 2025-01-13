@@ -26,23 +26,36 @@ const fileRef = useTemplateRef('fileUpload')
 const isLoading = ref(false);
 
 async function uploadFile() {
-    if (!fileRef?.value?.files) return
+    if (!fileRef?.value?.files || !fileRef.value.files[0]) return
+    isLoading.value = true;
+    const response = await $fetch(`/api/file/upload/${id}`, {
+        method: "POST",
+        body: {
+            fileName: fileRef.value.files[0].name,
+            contentType: fileRef.value.files[0].type
+        }
+    })
 
-    const file = fileRef.value.files[0];
-    if (!file) return
+    if (!response?.fields) {
+        return
+    }
+
     const formData = new FormData();
-    formData.append('file', file);
+    Object.entries(response.fields).forEach(([key, value]) => {
+        formData.append(key, value as string);
+    })
+    formData.append('file', fileRef.value.files[0]);
 
     try {
-        isLoading.value = true;
-        await $fetch(`/api/file/upload/${id}`, {
-            method: 'POST',
-            body: formData,
-        });
-        navigateTo('/')
-    } catch (error) {
+        await $fetch(response.url, {
+            method: "POST",
+            body: formData
+        })
+    }
+    catch (error) {
         console.log(error);
     }
+
     isLoading.value = false;
 }
 
