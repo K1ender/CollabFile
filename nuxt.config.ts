@@ -15,5 +15,6 @@ export default defineNuxtConfig({
     scheduledTasks: {
       "*/5 * * * *": ["db:delete_expired_url"],
     },
+    preset: "vercel",
   },
 });

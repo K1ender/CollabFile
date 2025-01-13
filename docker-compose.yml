@@ -21,12 +21,3 @@ services:
       /usr/bin/mc anonymous set public myminio/collabfile;
       exit 0;
       "
-  app:
-    build: .
-    ports:
-      - 3000:3000
-    depends_on:
-      - minio
-    restart: always
-    env_file:
-      - .env
