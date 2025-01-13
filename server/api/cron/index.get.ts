@@ -1,6 +1,6 @@
 import { lt } from "drizzle-orm";
 import { db } from "~~/server/database";
-import { sessionTable } from "~~/server/database/schema";
+import { sessionTable, temporaryURLsTable } from "~~/server/database/schema";
 
 export default defineEventHandler(async (event) => {
   if (
@@ -15,10 +15,15 @@ export default defineEventHandler(async (event) => {
   try {
     await db.delete(sessionTable).where(lt(sessionTable.expiresAt, new Date()));
   } catch (e) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: "Failed to delete expired sessions",
-    });
+    console.error(e);
+  }
+
+  try {
+    await db
+      .delete(temporaryURLsTable)
+      .where(lt(temporaryURLsTable.expiresAt, new Date()));
+  } catch (e) {
+    console.error(e);
   }
 
   return "OK";

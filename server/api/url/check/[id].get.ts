@@ -5,18 +5,18 @@ import { temporaryURLsTable } from "~~/server/database/schema";
 export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event);
   try {
-    const [Url] = await db
+    const [url] = await db
       .select()
       .from(temporaryURLsTable)
       .where(eq(temporaryURLsTable.id, id));
-    if (!Url) {
+    if (!url) {
       throw createError({
         statusCode: 404,
         statusMessage: "Not Found",
         message: "Url not found",
       });
     }
-    return Url;
+    return url;
   } catch (error) {
     throw createError({
       statusCode: 500,
