@@ -6,7 +6,7 @@ const { user } = useUser();
 
 <template>
     <header
-        class="flex bg-neutral-950 text-white px-8 py-6 md:py-4 rounded-b-2 flex-col md:flex-row md:items-center md:container mx-auto fixed left-0 right-0 w-full">
+        class="flex bg-neutral-950 text-white px-8 py-6 md:py-4 rounded-b-2 flex-col md:flex-row md:items-center md:container mx-auto fixed left-0 right-0 w-full z-10">
         <div class="flex flex-row justify-center">
             <NuxtLink @click="opened = false" to="/">CollabFile</NuxtLink>
             <Icon v-on:click="opened = !opened" name="meteor-icons:bars" size="1.5em"
