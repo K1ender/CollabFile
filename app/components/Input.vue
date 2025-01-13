@@ -16,7 +16,7 @@ type Sizes = {
 }
 
 const inputClasses = computed(() => {
-    const baseClasses = 'p-2 inline-flex border-2';
+    const baseClasses = 'p-2 inline-flex border-2 text-black';
     const variantClasses: Variants = {
         primary: 'border-blue-500',
         secondary: 'border-green-500',

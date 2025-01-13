@@ -10,7 +10,7 @@ async function register() {
     try {
         isLoading.value = true;
         await createUser(username.value, password.value);
-        navigateTo("/")
+        navigateTo("/profile")
     } catch (error) {
         console.log(error);
     }

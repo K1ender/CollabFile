@@ -11,7 +11,7 @@ async function login() {
     try {
         isLoading.value = true;
         await addAuth(username.value, password.value);
-        navigateTo("/")
+        navigateTo("/profile")
     } catch (error) {
         console.log(error);
     }
