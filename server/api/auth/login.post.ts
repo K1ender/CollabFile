@@ -1,7 +1,7 @@
 import { verify } from "@node-rs/argon2";
 import { eq } from "drizzle-orm";
 import * as v from "valibot";
-import { cookieName } from "~~/server/constants";
+import { cookieName, sessionExpiresIn } from "~~/server/constants";
 import { db } from "~~/server/database";
 import { userTable } from "~~/server/database/schema";
 import { createSession, generateToken } from "~~/server/session";
@@ -59,6 +59,7 @@ export default defineEventHandler(async (event) => {
     secure: true,
     sameSite: "lax",
     httpOnly: true,
+    maxAge: sessionExpiresIn,
   });
 
   return sendNoContent(event);

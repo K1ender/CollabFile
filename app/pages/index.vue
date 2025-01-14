@@ -26,7 +26,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="md:container flex mx-auto items-center justify-center">
+  <div class="md:container flex mx-auto items-center justify-center text-center">
 
     <div class="flex flex-col items-center gap-4">
       <Icon size="64" name="line-md:download-loop" />

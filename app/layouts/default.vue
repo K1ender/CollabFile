@@ -13,7 +13,7 @@ watch(user, () => {
 
 <template>
     <Navbar></Navbar>
-    <div class="h-full flex">
+    <div class="h-full flex px-8">
         <slot></slot>
     </div>
 </template>
