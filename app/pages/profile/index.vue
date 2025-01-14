@@ -53,6 +53,16 @@ const deleteLink = async (id: string) => {
     } catch { }
 }
 
+const downloadFile = async (id: number) => {
+    try {
+        const url = await $fetch(`/api/file/download/${id}`, {
+            method: "GET"
+        })
+
+        location.href = url
+    } catch { }
+}
+
 const { data: files, status } = useFetch("/api/user/files");
 </script>
 
@@ -78,9 +88,9 @@ const { data: files, status } = useFetch("/api/user/files");
             <h2>Your files: </h2>
             <ul v-if="files">
                 <li v-for="file in files" :key="file.id" class="text-center">
-                    <a class="text-blue-500" :href="`/api/file/download/${file.id}`">
+                    <button class="text-blue-500" @click="downloadFile(file.id)">
                         {{ file.fileName }}
-                    </a>
+                    </button>
                 </li>
             </ul>
             <p v-else-if="status === 'pending'">Loading...</p>

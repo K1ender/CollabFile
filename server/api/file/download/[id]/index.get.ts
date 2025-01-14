@@ -2,6 +2,8 @@ import { and, eq } from "drizzle-orm";
 import { db } from "~~/server/database";
 import { filesTable } from "~~/server/database/schema";
 import { client } from "~~/server/s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
 
 export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event);
@@ -21,18 +23,17 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const fileObject = await client.getObject({
-    Bucket: process.env.S3_BUCKET as string,
-    Key: file.key,
-  });
-
-  setHeader(event, "Content-Type", fileObject.ContentType);
-  setHeader(
-    event,
-    "Content-Disposition",
-    `attachment; filename="${file.fileName}"`
+  const url = await getSignedUrl(
+    client,
+    new GetObjectCommand({
+      Key: file.key,
+      Bucket: process.env.S3_BUCKET,
+      ResponseContentDisposition: `attachment; filename="${file.fileName}"`,
+    }),
+    {
+      expiresIn: 5 * 60,
+    }
   );
-  setHeader(event, "Content-Length", fileObject.ContentLength);
 
-  return fileObject.Body;
+  return url;
 });
