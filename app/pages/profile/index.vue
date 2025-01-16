@@ -63,7 +63,17 @@ const downloadFile = async (id: number) => {
     } catch { }
 }
 
-const { data: files, status } = useFetch("/api/user/files");
+const deleteFile = async (id: number) => {
+    try {
+        await $fetch(`/api/file/delete/${id}`, {
+            method: "DELETE"
+        })
+        await refreshFiles()
+    } catch { }
+
+}
+
+const { data: files, status, refresh: refreshFiles } = useFetch("/api/user/files");
 </script>
 
 <template>
@@ -86,11 +96,14 @@ const { data: files, status } = useFetch("/api/user/files");
 
         <div class="text-center mt-4">
             <h2>Your files: </h2>
-            <ul v-if="files">
-                <li v-for="file in files" :key="file.id" class="text-center">
-                    <button class="text-blue-500" @click="downloadFile(file.id)">
+            <ul v-if="files" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
+                <li v-for="file in files" :key="file.id" class="bg-white rounded p-2 flex flex-row">
+                    <button class="text-blue-500 w-full text-left text-truncate" @click="downloadFile(file.id)">
                         {{ file.fileName }}
                     </button>
+                    <IconButton variant="danger" class="ml-2" @click="deleteFile(file.id)">
+                        <Icon name="mdi:trash-can"></Icon>
+                    </IconButton>
                 </li>
             </ul>
             <p v-else-if="status === 'pending'">Loading...</p>

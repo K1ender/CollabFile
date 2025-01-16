@@ -2,8 +2,6 @@ import { and, eq } from "drizzle-orm";
 import { db } from "~~/server/database";
 import { filesTable } from "~~/server/database/schema";
 import { client } from "~~/server/s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { GetObjectCommand } from "@aws-sdk/client-s3";
 
 export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event);
@@ -23,17 +21,12 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const url = await getSignedUrl(
-    client,
-    new GetObjectCommand({
-      Key: file.key,
-      Bucket: process.env.S3_BUCKET,
-      ResponseContentDisposition: `attachment; filename="${file.fileName}"`,
-    }),
-    {
-      expiresIn: 60,
-    }
-  );
+  await client.deleteObject({
+    Bucket: process.env.S3_BUCKET,
+    Key: file.key,
+  });
 
-  return url;
+  await db.delete(filesTable).where(eq(filesTable.id, +id));
+
+  return sendNoContent(event);
 });
