@@ -27,7 +27,6 @@ async function uploadFile() {
     if (!fileRef?.value?.files || !fileRef.value.files[0]) return
 
     if (fileRef.value.files[0].size > 100 * 1024 * 1024) {
-        isLoading.value = false;
         return
     }
 

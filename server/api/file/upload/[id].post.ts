@@ -35,10 +35,19 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const [{ userID }] = await db
+  const [{ userID, expiresAt }] = await db
     .select()
     .from(temporaryURLsTable)
     .where(eq(temporaryURLsTable.id, id));
+
+  if (new Date() >= expiresAt) {
+    await db.delete(temporaryURLsTable).where(eq(temporaryURLsTable.id, id));
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Not Found",
+      message: "Url not found",
+    });
+  }
 
   if (!userID) {
     throw createError({
