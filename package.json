@@ -12,9 +12,9 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.730.0",
-    "@aws-sdk/s3-presigned-post": "^3.730.0",
-    "@aws-sdk/s3-request-presigner": "^3.730.0",
+    "@aws-sdk/client-s3": "^3.731.1",
+    "@aws-sdk/s3-presigned-post": "^3.731.1",
+    "@aws-sdk/s3-request-presigner": "^3.731.1",
     "@libsql/client": "^0.14.0",
     "@node-rs/argon2": "^2.0.2",
     "@nuxt/fonts": "^0.10.3",
