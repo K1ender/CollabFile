@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Navbar from '~/components/Navbar.vue';
+import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 
 const { user, fetchUserProfile } = useUser();
 
@@ -16,6 +17,7 @@ watch(user, () => {
     <div class="h-full flex px-8">
         <slot></slot>
     </div>
+    <SpeedInsights />
 </template>
 
 <style>

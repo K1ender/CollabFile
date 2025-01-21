@@ -21,6 +21,7 @@
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
     "@unocss/reset": "^65.4.2",
+    "@vercel/speed-insights": "^1.1.0",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.4",
     "nanoid": "^5.0.9",
