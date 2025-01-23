@@ -12,9 +12,9 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.732.0",
-    "@aws-sdk/s3-presigned-post": "^3.732.0",
-    "@aws-sdk/s3-request-presigner": "^3.732.0",
+    "@aws-sdk/client-s3": "^3.733.0",
+    "@aws-sdk/s3-presigned-post": "^3.733.0",
+    "@aws-sdk/s3-request-presigner": "^3.733.0",
     "@libsql/client": "^0.14.0",
     "@node-rs/argon2": "^2.0.2",
     "@nuxt/fonts": "^0.10.3",
@@ -27,7 +27,7 @@
     "nanoid": "^5.0.9",
     "nuxt": "^3.15.2",
     "uuid": "^11.0.5",
-    "valibot": "1.0.0-beta.13",
+    "valibot": "1.0.0-beta.14",
     "vue": "latest",
     "vue-router": "latest"
   },
