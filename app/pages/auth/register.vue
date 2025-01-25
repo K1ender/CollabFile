@@ -7,19 +7,18 @@ const { register: createUser } = useUser();
 const isLoading = ref(false);
 
 async function register() {
-    try {
-        isLoading.value = true;
-        await createUser(username.value, password.value);
-        navigateTo("/profile")
-    } catch (error) {
-        console.log(error);
-    }
-    isLoading.value = false;
+	try {
+		isLoading.value = true;
+		await createUser(username.value, password.value);
+		navigateTo("/profile");
+	} catch (error) {
+		console.log(error);
+	}
+	isLoading.value = false;
 }
 definePageMeta({
-    skipAuth: true,
-})
-
+	skipAuth: true,
+});
 </script>
 
 <template>

@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import Navbar from '~/components/Navbar.vue';
-import { SpeedInsights } from "@vercel/speed-insights/nuxt"
+import { SpeedInsights } from "@vercel/speed-insights/nuxt";
+import Navbar from "~/components/Navbar.vue";
 
 const { user, fetchUserProfile } = useUser();
 
-watch(user, () => {
-    fetchUserProfile();
-}, {
-    deep: true,
-    immediate: true
-})
+watch(
+	user,
+	() => {
+		fetchUserProfile();
+	},
+	{
+		deep: true,
+		immediate: true,
+	},
+);
 </script>
 
 <template>

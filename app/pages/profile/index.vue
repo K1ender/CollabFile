@@ -4,76 +4,77 @@ const { user, logout: removeAuth } = useUser();
 const app = useRequestURL();
 
 async function logout() {
-    try {
-        await removeAuth();
-        await navigateTo("/");
-    } catch (e) {
-        console.log(e);
-    }
+	try {
+		await removeAuth();
+		await navigateTo("/");
+	} catch (e) {
+		console.log(e);
+	}
 }
 
 const { data, refresh } = useFetch("/api/user/avaliable_urls");
 
 function getUploadURL(id: string) {
-    return `${app.origin}/uploadFile/${id}`;
+	return `${app.origin}/uploadFile/${id}`;
 }
 
 async function createTemporaryLink() {
-    try {
-        const { id } = await $fetch("/api/file/createTemporaryURL", {
-            method: "POST"
-        })
-        if (!id) {
-            throw new Error("Failed to create temporary URL");
-        }
-        refresh();
-    } catch (e) {
-        console.error(e);
-    }
-
+	try {
+		const { id } = await $fetch("/api/file/createTemporaryURL", {
+			method: "POST",
+		});
+		if (!id) {
+			throw new Error("Failed to create temporary URL");
+		}
+		refresh();
+	} catch (e) {
+		console.error(e);
+	}
 }
 
 let intervalId: number;
 
 onMounted(() => {
-    intervalId = window.setInterval(() => {
-
-        refresh();
-    }, 1000 * 60);
-})
+	intervalId = window.setInterval(() => {
+		refresh();
+	}, 1000 * 60);
+});
 
 onBeforeUnmount(() => clearInterval(intervalId));
 
 const deleteLink = async (id: string) => {
-    try {
-        await $fetch(`/api/url/${id}`, {
-            method: "DELETE"
-        })
-        await refresh()
-    } catch { }
-}
+	try {
+		await $fetch(`/api/url/${id}`, {
+			method: "DELETE",
+		});
+		await refresh();
+	} catch {}
+};
 
 const downloadFile = async (id: number) => {
-    try {
-        const url = await $fetch(`/api/file/download/${id}`, {
-            method: "GET"
-        })
+	try {
+		const url = await $fetch(`/api/file/download/${id}`, {
+			method: "GET",
+		});
 
-        location.href = url
-    } catch { }
-}
+		location.href = url;
+	} catch {}
+};
 
 const deleteFile = async (id: number) => {
-    try {
-        await $fetch(`/api/file/delete/${id}`, {
-            method: "DELETE"
-        })
-        await refreshFiles()
-    } catch { }
+	try {
+		await $fetch(`/api/file/delete/${id}`, {
+			method: "DELETE",
+		});
+		await refreshFiles();
+	} catch {}
+};
 
-}
-
-const { data: files, status, refresh: refreshFiles } = useFetch("/api/user/files");
+const {
+	data: files,
+	status,
+	refresh: refreshFiles,
+} = useFetch("/api/user/files");
 </script>
 
 <template>

@@ -1,8 +1,8 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  if (to.meta.skipAuth) return;
+	if (to.meta.skipAuth) return;
 
-  const { user } = useUser();
+	const { user } = useUser();
 
-  if (user.value?.isAuthenticated === false || !user.value?.isAuthenticated)
-    return navigateTo("/auth/login");
+	if (user.value?.isAuthenticated === false || !user.value?.isAuthenticated)
+		return navigateTo("/auth/login");
 });

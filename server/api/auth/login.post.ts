@@ -7,60 +7,60 @@ import { userTable } from "~~/server/database/schema";
 import { createSession, generateToken } from "~~/server/session";
 
 const bodySchema = v.object({
-  username: v.pipe(
-    v.string("Username is required"),
-    v.nonEmpty("Username is required")
-  ),
-  password: v.pipe(
-    v.string("Password is required"),
-    v.nonEmpty("Password is required")
-  ),
+	username: v.pipe(
+		v.string("Username is required"),
+		v.nonEmpty("Username is required"),
+	),
+	password: v.pipe(
+		v.string("Password is required"),
+		v.nonEmpty("Password is required"),
+	),
 });
 
 export default defineEventHandler(async (event) => {
-  const body = await readValidatedBody(event, (body) =>
-    v.safeParse(bodySchema, body)
-  );
+	const body = await readValidatedBody(event, (body) =>
+		v.safeParse(bodySchema, body),
+	);
 
-  if (!body.success) {
-    throw createError({
-      statusCode: 400,
-      data: body.issues,
-      message: "Bad Request",
-    });
-  }
+	if (!body.success) {
+		throw createError({
+			statusCode: 400,
+			data: body.issues,
+			message: "Bad Request",
+		});
+	}
 
-  const [user] = await db
-    .select()
-    .from(userTable)
-    .where(eq(userTable.username, body.output.username));
+	const [user] = await db
+		.select()
+		.from(userTable)
+		.where(eq(userTable.username, body.output.username));
 
-  if (!user) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: "Not Found",
-      message: "User not found",
-    });
-  }
+	if (!user) {
+		throw createError({
+			statusCode: 404,
+			statusMessage: "Not Found",
+			message: "User not found",
+		});
+	}
 
-  const isValidPassword = await verify(user.password, body.output.password);
-  if (!isValidPassword) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: "Unauthorized",
-      message: "Invalid credentials",
-    });
-  }
+	const isValidPassword = await verify(user.password, body.output.password);
+	if (!isValidPassword) {
+		throw createError({
+			statusCode: 401,
+			statusMessage: "Unauthorized",
+			message: "Invalid credentials",
+		});
+	}
 
-  const token = generateToken();
-  createSession(user.id, token);
+	const token = generateToken();
+	createSession(user.id, token);
 
-  setCookie(event, cookieName, token, {
-    secure: true,
-    sameSite: "lax",
-    httpOnly: true,
-    maxAge: sessionExpiresIn,
-  });
+	setCookie(event, cookieName, token, {
+		secure: true,
+		sameSite: "lax",
+		httpOnly: true,
+		maxAge: sessionExpiresIn,
+	});
 
-  return sendNoContent(event);
+	return sendNoContent(event);
 });
