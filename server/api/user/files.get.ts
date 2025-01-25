@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       .from(filesTable)
       .where(eq(filesTable.userID, user.id));
     return files;
-  } catch (e) {
+  } catch {
     throw createError({
       statusCode: 500,
       statusMessage: "Internal Server Error",

@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
       });
     }
     return url;
-  } catch (error) {
+  } catch {
     throw createError({
       statusCode: 500,
       statusMessage: "Internal Server Error",

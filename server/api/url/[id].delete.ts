@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   try {
     await db.delete(temporaryURLsTable).where(eq(temporaryURLsTable.id, id));
     return sendNoContent(event);
-  } catch (error) {
+  } catch {
     throw createError({
       statusCode: 500,
       statusMessage: "Internal Server Error",

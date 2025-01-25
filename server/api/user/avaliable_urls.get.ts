@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       .from(temporaryURLsTable)
       .where(eq(temporaryURLsTable.userID, user.id));
     return urls;
-  } catch (e) {
+  } catch {
     throw createError({
       statusCode: 500,
       statusMessage: "Internal Server Error",
