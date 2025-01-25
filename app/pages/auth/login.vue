@@ -7,17 +7,17 @@ const isLoading = ref(false);
 const { login: addAuth } = useUser();
 
 async function login() {
-	try {
-		isLoading.value = true;
-		await addAuth(username.value, password.value);
-		navigateTo("/profile");
-	} catch (error) {
-		console.log(error);
-	}
-	isLoading.value = false;
+  try {
+    isLoading.value = true;
+    await addAuth(username.value, password.value);
+    navigateTo("/profile");
+  } catch (error) {
+    console.log(error);
+  }
+  isLoading.value = false;
 }
 definePageMeta({
-	skipAuth: true,
+  skipAuth: true,
 });
 </script>
 

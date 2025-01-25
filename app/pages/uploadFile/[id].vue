@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-	skipAuth: true,
-	middleware: ["url-check"],
+  skipAuth: true,
+  middleware: ["url-check"],
 });
 
 const router = useRoute();
@@ -12,9 +12,9 @@ const { data, error, refresh } = await useFetch(`/api/url/check/${id}`);
 let intervalId: number;
 
 onMounted(() => {
-	intervalId = window.setInterval(() => {
-		refresh();
-	}, 1000 * 60);
+  intervalId = window.setInterval(() => {
+    refresh();
+  }, 1000 * 60);
 });
 
 onBeforeUnmount(() => clearInterval(intervalId));
@@ -24,42 +24,42 @@ const fileRef = useTemplateRef("fileUpload");
 const isLoading = ref(false);
 
 async function uploadFile() {
-	if (!fileRef?.value?.files || !fileRef.value.files[0]) return;
+  if (!fileRef?.value?.files || !fileRef.value.files[0]) return;
 
-	if (fileRef.value.files[0].size > 100 * 1024 * 1024) {
-		return;
-	}
+  if (fileRef.value.files[0].size > 100 * 1024 * 1024) {
+    return;
+  }
 
-	isLoading.value = true;
-	const response = await $fetch(`/api/file/upload/${id}`, {
-		method: "POST",
-		body: {
-			fileName: fileRef.value.files[0].name,
-			contentType: fileRef.value.files[0].type,
-		},
-	});
+  isLoading.value = true;
+  const response = await $fetch(`/api/file/upload/${id}`, {
+    method: "POST",
+    body: {
+      fileName: fileRef.value.files[0].name,
+      contentType: fileRef.value.files[0].type,
+    },
+  });
 
-	if (!response?.fields) {
-		return;
-	}
+  if (!response?.fields) {
+    return;
+  }
 
-	const formData = new FormData();
-	for (const [key, value] of Object.entries(response.fields)) {
-		formData.append(key, value as string);
-	}
-	formData.append("file", fileRef.value.files[0]);
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(response.fields)) {
+    formData.append(key, value as string);
+  }
+  formData.append("file", fileRef.value.files[0]);
 
-	try {
-		await $fetch(response.url, {
-			method: "POST",
-			body: formData,
-		});
-	} catch (error) {
-		console.log(error);
-	}
+  try {
+    await $fetch(response.url, {
+      method: "POST",
+      body: formData,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
-	navigateTo("/");
-	isLoading.value = false;
+  navigateTo("/");
+  isLoading.value = false;
 }
 </script>
 

@@ -5,14 +5,14 @@ import Navbar from "~/components/Navbar.vue";
 const { user, fetchUserProfile } = useUser();
 
 watch(
-	user,
-	() => {
-		fetchUserProfile();
-	},
-	{
-		deep: true,
-		immediate: true,
-	},
+  user,
+  () => {
+    fetchUserProfile();
+  },
+  {
+    deep: true,
+    immediate: true,
+  },
 );
 </script>
 

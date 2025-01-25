@@ -1,44 +1,44 @@
 {
-	"name": "nuxt-app",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"build": "nuxt build",
-		"dev": "nuxt dev",
-		"generate": "nuxt generate",
-		"preview": "nuxt preview",
-		"postinstall": "nuxt prepare",
-		"db:generate": "drizzle-kit generate",
-		"db:migrate": "drizzle-kit migrate"
-	},
-	"dependencies": {
-		"@aws-sdk/client-s3": "^3.734.0",
-		"@aws-sdk/s3-presigned-post": "^3.734.0",
-		"@aws-sdk/s3-request-presigner": "^3.734.0",
-		"@libsql/client": "^0.14.0",
-		"@node-rs/argon2": "^2.0.2",
-		"@nuxt/fonts": "^0.10.3",
-		"@oslojs/crypto": "^1.0.1",
-		"@oslojs/encoding": "^1.1.0",
-		"@unocss/reset": "^65.4.3",
-		"@vercel/speed-insights": "^1.1.0",
-		"dotenv": "^16.4.7",
-		"drizzle-orm": "^0.38.4",
-		"nanoid": "^5.0.9",
-		"uuid": "^11.0.5",
-		"valibot": "1.0.0-beta.14",
-		"vue": "latest",
-		"vue-router": "latest"
-	},
-	"packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a",
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@nuxt/icon": "^1.10.3",
-		"@unocss/nuxt": "^65.4.3",
-		"@unocss/preset-uno": "^65.4.3",
-		"drizzle-kit": "^0.30.2",
-		"nuxt": "^3.15.3",
-		"tsx": "^4.19.2",
-		"unocss": "^65.4.3"
-	}
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.734.0",
+    "@aws-sdk/s3-presigned-post": "^3.734.0",
+    "@aws-sdk/s3-request-presigner": "^3.734.0",
+    "@libsql/client": "^0.14.0",
+    "@node-rs/argon2": "^2.0.2",
+    "@nuxt/fonts": "^0.10.3",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
+    "@unocss/reset": "^65.4.3",
+    "@vercel/speed-insights": "^1.1.0",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.38.4",
+    "nanoid": "^5.0.9",
+    "uuid": "^11.0.5",
+    "valibot": "1.0.0-beta.14",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@nuxt/icon": "^1.10.3",
+    "@unocss/nuxt": "^65.4.3",
+    "@unocss/preset-uno": "^65.4.3",
+    "drizzle-kit": "^0.30.2",
+    "nuxt": "^3.15.3",
+    "tsx": "^4.19.2",
+    "unocss": "^65.4.3"
+  }
 }
