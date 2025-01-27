@@ -7,6 +7,6 @@ export default defineEventHandler((event) => {
   );
   event.node.res.setHeader(
     "Content-Security-Policy",
-    "script-src 'self' https://va.vercel-scripts.com 'unsafe-inline';",
+    "script-src 'self' 'unsafe-inline';",
   );
 });
