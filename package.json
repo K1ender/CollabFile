@@ -13,9 +13,9 @@
     "lint:fix": "biome check --fix --unsafe"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.735.0",
-    "@aws-sdk/s3-presigned-post": "^3.735.0",
-    "@aws-sdk/s3-request-presigner": "^3.735.0",
+    "@aws-sdk/client-s3": "^3.740.0",
+    "@aws-sdk/s3-presigned-post": "^3.740.0",
+    "@aws-sdk/s3-request-presigner": "^3.740.0",
     "@libsql/client": "^0.14.0",
     "@node-rs/argon2": "^2.0.2",
     "@nuxt/fonts": "^0.10.3",
@@ -23,7 +23,7 @@
     "@oslojs/encoding": "^1.1.0",
     "@unocss/reset": "^65.4.3",
     "dotenv": "^16.4.7",
-    "drizzle-orm": "^0.39.0",
+    "drizzle-orm": "^0.39.1",
     "nanoid": "^5.0.9",
     "uuid": "^11.0.5",
     "valibot": "1.0.0-beta.14",
@@ -36,7 +36,7 @@
     "@nuxt/icon": "^1.10.3",
     "@unocss/nuxt": "^65.4.3",
     "@unocss/preset-uno": "^65.4.3",
-    "drizzle-kit": "^0.30.3",
+    "drizzle-kit": "^0.30.4",
     "nuxt": "^3.15.4",
     "tsx": "^4.19.2",
     "unocss": "^65.4.3"
