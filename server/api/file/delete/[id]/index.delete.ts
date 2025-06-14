@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     .select()
     .from(filesTable)
     .where(
-      and(eq(filesTable.id, +id), eq(filesTable.userID, event.context.user.id))
+      and(eq(filesTable.id, +id), eq(filesTable.userID, event.context.user.id)),
     );
 
   if (!file) {

@@ -17,7 +17,7 @@ export function generateToken(): string {
 
 export async function createSession(
   userID: number,
-  token: string
+  token: string,
 ): Promise<typeof sessionTable.$inferSelect> {
   const sessionID = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
   const session: typeof sessionTable.$inferInsert = {

@@ -9,7 +9,7 @@ import { client } from "~~/server/s3";
 const bodySchema = v.object({
   fileName: v.pipe(
     v.string("Filename is required"),
-    v.nonEmpty("Filename is required")
+    v.nonEmpty("Filename is required"),
   ),
   contentType: v.string("Content type is required"),
 });
