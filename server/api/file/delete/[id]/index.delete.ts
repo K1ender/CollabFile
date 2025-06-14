@@ -5,12 +5,19 @@ import { client } from "~~/server/s3";
 
 export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event);
+  if (!id) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "Bad id",
+    });
+  }
 
   const [file] = await db
     .select()
     .from(filesTable)
     .where(
-      and(eq(filesTable.id, +id), eq(filesTable.userID, event.context.user.id)),
+      and(eq(filesTable.id, +id), eq(filesTable.userID, event.context.user.id))
     );
 
   if (!file) {

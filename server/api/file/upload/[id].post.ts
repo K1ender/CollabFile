@@ -9,7 +9,7 @@ import { client } from "~~/server/s3";
 const bodySchema = v.object({
   fileName: v.pipe(
     v.string("Filename is required"),
-    v.nonEmpty("Filename is required"),
+    v.nonEmpty("Filename is required")
   ),
   contentType: v.string("Content type is required"),
 });
@@ -35,12 +35,20 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const [{ userID, expiresAt }] = await db
+  const [temporaryURL] = await db
     .select()
     .from(temporaryURLsTable)
     .where(eq(temporaryURLsTable.id, id));
 
-  if (new Date() >= expiresAt) {
+  if (!temporaryURL) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Not Found",
+      message: "Url not found",
+    });
+  }
+
+  if (new Date() >= temporaryURL.expiresAt) {
     await db.delete(temporaryURLsTable).where(eq(temporaryURLsTable.id, id));
     throw createError({
       statusCode: 404,
@@ -49,7 +57,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  if (!userID) {
+  if (!temporaryURL.userID) {
     throw createError({
       statusCode: 404,
       statusMessage: "Not Found",
@@ -69,9 +77,17 @@ export default defineEventHandler(async (event) => {
     },
   });
 
+  if (!temporaryURL) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Not Found",
+      message: "Url not found",
+    });
+  }
+
   await db.insert(filesTable).values({
     key,
-    userID,
+    userID: temporaryURL.userID,
     fileName,
   });
 

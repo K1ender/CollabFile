@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const [{ id }] = await db
+    const [temporaryURL] = await db
       .insert(temporaryURLsTable)
       .values({
         expiresAt: new Date(Date.now() + 5 * 60 * 1000),
@@ -26,7 +26,15 @@ export default defineEventHandler(async (event) => {
       })
       .returning();
 
-    return { id };
+    if (!temporaryURL) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Internal Server Error",
+        message: "Failed to create temporary URL",
+      });
+    }
+
+    return { id: temporaryURL.id };
   } catch {
     throw createError({
       statusCode: 500,

@@ -4,6 +4,13 @@ import { temporaryURLsTable } from "~~/server/database/schema";
 
 export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event);
+  if (!id) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "Bad id",
+    });
+  }
   try {
     const [url] = await db
       .select()

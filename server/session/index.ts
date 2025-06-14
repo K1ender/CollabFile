@@ -17,7 +17,7 @@ export function generateToken(): string {
 
 export async function createSession(
   userID: number,
-  token: string,
+  token: string
 ): Promise<typeof sessionTable.$inferSelect> {
   const sessionID = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
   const session: typeof sessionTable.$inferInsert = {
@@ -36,18 +36,20 @@ export async function validateSession(token: string): Promise<{
   user: typeof userTable.$inferSelect | null;
 }> {
   const sessionID = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-  const result = await db
+  const [result] = await db
     .select({ user: userTable, session: sessionTable })
     .from(sessionTable)
     .innerJoin(userTable, eq(sessionTable.userID, userTable.id))
     .where(eq(sessionTable.id, sessionID));
-  if (result.length < 1) {
+
+  if (!result) {
     return {
       session: null,
       user: null,
     };
   }
-  const { session, user } = result[0];
+
+  const { session, user } = result;
 
   if (Date.now() >= session.expiresAt.getTime()) {
     await db.delete(sessionTable).where(eq(sessionTable.id, sessionID));
