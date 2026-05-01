@@ -2,12 +2,15 @@ import { eq } from "drizzle-orm";
 import { maxUrls } from "~~/server/constants";
 import { db } from "~~/server/database";
 import { temporaryURLsTable } from "~~/server/database/schema";
+import { useAuth } from "~~/server/hooks/auth";
 
 export default defineEventHandler(async (event) => {
+  const { user } = await useAuth(event);
+
   const links = await db
     .select()
     .from(temporaryURLsTable)
-    .where(eq(temporaryURLsTable.userID, event.context.user.id));
+    .where(eq(temporaryURLsTable.userID, user.id));
 
   if (links.length >= maxUrls) {
     throw createError({
@@ -22,7 +25,7 @@ export default defineEventHandler(async (event) => {
       .insert(temporaryURLsTable)
       .values({
         expiresAt: new Date(Date.now() + 5 * 60 * 1000),
-        userID: event.context.user.id,
+        userID: user.id,
       })
       .returning();
 

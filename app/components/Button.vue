@@ -43,10 +43,10 @@ const buttonClasses = computed(() => {
 </script>
 
 <template>
-    <button v-if="!to" :class="buttonClasses">
-        <slot></slot>
-    </button>
-    <NuxtLink v-else :to="to" :class="buttonClasses">
-        <slot></slot>
-    </NuxtLink>
+  <button v-if="!to" :class="buttonClasses">
+    <slot></slot>
+  </button>
+  <NuxtLink v-else :to="to" :class="buttonClasses">
+    <slot></slot>
+  </NuxtLink>
 </template>

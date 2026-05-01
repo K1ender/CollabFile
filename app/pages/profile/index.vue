@@ -48,7 +48,7 @@ const deleteLink = async (id: string) => {
       method: "DELETE",
     });
     await refresh();
-  } catch {}
+  } catch { }
 };
 
 const downloadFile = async (id: number) => {
@@ -58,7 +58,7 @@ const downloadFile = async (id: number) => {
     });
 
     location.href = url;
-  } catch {}
+  } catch { }
 };
 
 const deleteFile = async (id: number) => {
@@ -67,7 +67,7 @@ const deleteFile = async (id: number) => {
       method: "DELETE",
     });
     await refreshFiles();
-  } catch {}
+  } catch { }
 };
 
 const {
@@ -78,38 +78,38 @@ const {
 </script>
 
 <template>
-    <div class="pt-21 flex flex-col items-center min-h-full w-full justify-center">
-        <h1 class="text-center text-3xl fw-semibold">Welcome back! {{ user?.username }}</h1>
+  <div class="pt-21 flex flex-col items-center min-h-full w-full justify-center">
+    <h1 class="text-center text-3xl fw-semibold">Welcome back! {{ user?.username }}</h1>
 
-        <Button @click="createTemporaryLink" class="my-2">Create temporary link</Button>
-        <div>
-            <h2 class="text-center">Avaliable links: </h2>
-            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
-                <li v-for="link in data" :key="link.id" class="flex items-center gap-2 bg-neutral-50 rounded p-2">
-                    <NuxtLink class="text-blue-500 w-32" :to="getUploadURL(link.id)">{{ link.id }}
-                    </NuxtLink>
-                    <IconButton @click="deleteLink(link.id)" variant="danger">
-                        <Icon name="mdi:trash-can"></Icon>
-                    </IconButton>
-                </li>
-            </ul>
-        </div>
-
-        <div class="text-center mt-4">
-            <h2>Your files: </h2>
-            <ul v-if="files" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
-                <li v-for="file in files" :key="file.id" class="bg-white rounded p-2 flex flex-row">
-                    <button class="text-blue-500 w-full text-left text-truncate" @click="downloadFile(file.id)">
-                        {{ file.fileName }}
-                    </button>
-                    <IconButton variant="danger" class="ml-2" @click="deleteFile(file.id)">
-                        <Icon name="mdi:trash-can"></Icon>
-                    </IconButton>
-                </li>
-            </ul>
-            <p v-else-if="status === 'pending'">Loading...</p>
-        </div>
-
-        <Button class="mt-4" @click="logout">Logout</Button>
+    <Button @click="createTemporaryLink" class="my-2">Create temporary link</Button>
+    <div>
+      <h2 class="text-center">Avaliable links: </h2>
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
+        <li v-for="link in data" :key="link.id" class="flex items-center gap-2 bg-neutral-50 rounded p-2">
+          <NuxtLink class="text-blue-500 w-32" :to="getUploadURL(link.id)">{{ link.id }}
+          </NuxtLink>
+          <IconButton @click="deleteLink(link.id)" variant="danger">
+            <Icon name="mdi:trash-can"></Icon>
+          </IconButton>
+        </li>
+      </ul>
     </div>
+
+    <div class="text-center mt-4">
+      <h2>Your files: </h2>
+      <ul v-if="files" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
+        <li v-for="file in files" :key="file.id" class="bg-white rounded p-2 flex flex-row">
+          <button class="text-blue-500 w-full text-left text-truncate" @click="downloadFile(file.id)">
+            {{ file.fileName }}
+          </button>
+          <IconButton variant="danger" class="ml-2" @click="deleteFile(file.id)">
+            <Icon name="mdi:trash-can"></Icon>
+          </IconButton>
+        </li>
+      </ul>
+      <p v-else-if="status === 'pending'">Loading...</p>
+    </div>
+
+    <Button class="mt-4" @click="logout">Logout</Button>
+  </div>
 </template>

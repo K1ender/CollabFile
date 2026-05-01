@@ -24,7 +24,7 @@ const fileRef = useTemplateRef("fileUpload");
 const isLoading = ref(false);
 
 async function uploadFile() {
-  if (!fileRef?.value?.files || !fileRef.value.files[0]) return;
+  if (!fileRef?.value?.files?.[0]) return;
 
   if (fileRef.value.files[0].size > 100 * 1024 * 1024) {
     return;
@@ -64,22 +64,22 @@ async function uploadFile() {
 </script>
 
 <template>
-	<div class="text-center flex flex-col items-center w-full h-full justify-center">
-		<div v-if="error">
-			<h1>404</h1>
-			<p>File not found</p>
-		</div>
-		<div v-else class="flex flex-col">
-			<h1>{{ id }}</h1>
-			<p>Created by: {{ data?.userID }}</p>
+  <div class="text-center flex flex-col items-center w-full h-full justify-center">
+    <div v-if="error">
+      <h1>404</h1>
+      <p>File not found</p>
+    </div>
+    <div v-else class="flex flex-col">
+      <h1>{{ id }}</h1>
+      <p>Created by: {{ data?.userID }}</p>
 
-			<p class="mt-4">Max file size: 100 MB </p>
-			<input ref="fileUpload" type="file" />
+      <p class="mt-4">Max file size: 100 MB </p>
+      <input ref="fileUpload" type="file" />
 
-			<Button :disabled="isLoading" @click="uploadFile" class="mt-6">
-				{{ isLoading ? "Uploading..." : "Upload" }}
-			</Button>
-			<Button variant="link" class="text-blue-500 mt-2" to="/profile">Back</Button>
-		</div>
-	</div>
+      <Button :disabled="isLoading" @click="uploadFile" class="mt-6">
+        {{ isLoading ? "Uploading..." : "Upload" }}
+      </Button>
+      <Button variant="link" class="text-blue-500 mt-2" to="/profile">Back</Button>
+    </div>
+  </div>
 </template>

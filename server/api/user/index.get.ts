@@ -1,4 +1,6 @@
+import { useAuth } from "~~/server/hooks/auth";
+
 export default defineEventHandler(async (event) => {
-  const user = event.context.user;
+  const { user } = await useAuth(event);
   return user;
 });
